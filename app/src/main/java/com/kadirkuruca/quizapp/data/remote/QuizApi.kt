@@ -1,5 +1,6 @@
 package com.kadirkuruca.quizapp.data.remote
 
+import com.kadirkuruca.quizapp.data.model.CategoryResponse
 import com.kadirkuruca.quizapp.data.model.QuizResponse
 import com.kadirkuruca.quizapp.util.QUESTION_AMOUNT
 import com.kadirkuruca.quizapp.util.QUESTION_CATEGORY
@@ -16,4 +17,7 @@ interface QuizApi {
         @Query("category") category: Int = QUESTION_CATEGORY,
         @Query("difficulty") difficulty: String = QUESTION_DIFFICULTY
     ): Response<QuizResponse>
+
+    @GET("api_category.php")
+    suspend fun getCategories(): Response<CategoryResponse>
 }
