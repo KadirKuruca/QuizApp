@@ -4,8 +4,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kadirkuruca.quizapp.data.model.Category
 import com.kadirkuruca.quizapp.data.model.CategoryResponse
 import com.kadirkuruca.quizapp.repository.QuizRepository
+import com.kadirkuruca.quizapp.util.QUESTION_CATEGORY
 import com.kadirkuruca.quizapp.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -24,13 +26,15 @@ class CategoryViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             categoryList.postValue(Resource.Loading())
             val categoryResponse = quizRepository.getCategories()
-            categoryList.postValue(handleBreakingNewsResponse(categoryResponse))
+            categoryList.postValue(handleCategoryResponse(categoryResponse))
         }
     }
 
-    private fun handleBreakingNewsResponse(response: Response<CategoryResponse>): Resource<CategoryResponse> {
+    private fun handleCategoryResponse(response: Response<CategoryResponse>): Resource<CategoryResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
+                val mixCategory = Category(name = "Classic (Mixed)",id = QUESTION_CATEGORY)
+                resultResponse.trivia_categories.add(0, mixCategory)
                 return Resource.Success(resultResponse)
             }
         }

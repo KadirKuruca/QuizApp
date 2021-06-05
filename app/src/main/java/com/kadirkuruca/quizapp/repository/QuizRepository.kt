@@ -11,8 +11,8 @@ import javax.inject.Singleton
 class QuizRepository @Inject constructor(
     private val quizApi: QuizApi
 ) {
-    suspend fun getQuestions(category: Int, difficulty: String): Response<QuizResponse>{
-        return quizApi.getQuestions(category = category, difficulty = difficulty)
+    suspend fun getQuestions(category: Int): Response<QuizResponse>{
+        return quizApi.getQuestions(category = category)
     }
 
     suspend fun getCategories(): Response<CategoryResponse>{

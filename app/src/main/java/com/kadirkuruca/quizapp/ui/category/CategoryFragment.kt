@@ -7,6 +7,7 @@ import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kadirkuruca.quizapp.R
 import com.kadirkuruca.quizapp.adapter.CategoryAdapter
@@ -40,7 +41,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category), CategoryAdapter.O
                 is Resource.Success -> {
                     progressbar.visibility = GONE
                     it.data?.let { categoryResponse ->
-                        categoryAdapter.submitList(categoryResponse.trivia_categories)
+                        categoryAdapter.submitList(categoryResponse.trivia_categories.toList())
                     }
                 }
                 is Resource.Error -> {
@@ -58,6 +59,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category), CategoryAdapter.O
     }
 
     override fun onItemClick(category: Category) {
-
+        val action = CategoryFragmentDirections.actionCategoryFragmentToQuestionsFragment(category)
+        findNavController().navigate(action)
     }
 }

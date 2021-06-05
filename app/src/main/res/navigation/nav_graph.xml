@@ -23,6 +23,23 @@
         android:id="@+id/categoryFragment"
         android:name="com.kadirkuruca.quizapp.ui.category.CategoryFragment"
         android:label="Select Category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_questionsFragment"
+            app:destination="@id/questionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/questionsFragment"
+        android:name="com.kadirkuruca.quizapp.ui.questions.QuestionsFragment"
+        android:label="Questions"
+        tools:layout="@layout/fragment_questions" >
+        <argument
+            android:name="category"
+            app:argType="com.kadirkuruca.quizapp.data.model.Category" />
+    </fragment>
 
 </navigation>
